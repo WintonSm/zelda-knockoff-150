@@ -77,7 +77,7 @@ public class View {
 		DrawingPanel panel = this.panels[4];
 		if (Main.player.getHp() > 0) {
 			panel.addObject(new Sprite("win.jpg", scale(0, 0, 1.0, 1.0)));
-			panel.addObject(new Sprite("player.png", scale(.3, .5, .2, .3)));
+			panel.addObject(new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", scale(.3, .5, .2, .3)));
 		} else {
 			panel.addObject(new Sprite("loss.png",  scale(0, 0, 1.0, 1.0)));
 		}
@@ -94,7 +94,7 @@ public class View {
 		DrawingPanel items = new DrawingPanel(scale(0.775, .1, .2, .8));
 		items.setBackground(new Color(200, 200, 200));
 		
-		items.addObject(new Sprite("sword.png", items.scale(.1, .05, .8, .3)));
+		items.addObject(new Sprite("new-sprites/Items/Sword-basic.png", items.scale(.1, .05, .8, .3)));
 		
 		panels[3] = items;
 	}
@@ -155,7 +155,7 @@ public class View {
 		DrawingPanel stats = new DrawingPanel(scale(0.025, .1, .2, .8));
 		stats.setBackground(new Color(200, 200, 200));
 		
-		stats.addObject(new Sprite("player.png", stats.scale(.1, .05, .8, .3)));
+		stats.addObject(new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", stats.scale(.1, .05, .8, .3)));
 		
 		panels[2] = stats;
 	}
@@ -166,7 +166,7 @@ public class View {
 	public void fightPanel() {
 		DrawingPanel fight = new DrawingPanel(scale(.25, .1, .5, .8));
 		fight.setBackground(new Color(255, 0, 0));
-		fight.addObject(new Sprite("Skeleton.png", fight.scale(.25, .05, .6, .5)));
+		fight.addObject(new Sprite("new-sprites/Enemies/Skeleton-basic.png", fight.scale(.25, .05, .6, .5)));
 		panels[1] = fight;
 	}
 	
@@ -222,7 +222,7 @@ public class View {
 		int y = Main.player.getSquare() / Main.player.getWidth();
 		boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
 		
-		Sprite hero = new Sprite("player.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 		panel.addObject(hero);
 		
 		if (!walls[0]) {
@@ -286,7 +286,7 @@ public class View {
 			if (Main.isEnemy(square) != null) {
 				int x = square % Main.player.getWidth();
 				int y = square / Main.player.getWidth();
-				Sprite enemy = new Sprite("Skeleton.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+				Sprite enemy = new Sprite("new-sprites/Enemies/Skeleton-basic.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 				panel.addObject(enemy);
 			}
 		}
