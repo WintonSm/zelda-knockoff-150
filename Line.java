@@ -33,11 +33,19 @@ public class Line extends Object {
 	@Override
 	public void draw(Graphics g) {
 		BufferedImage wall = null;
+		
 		try {
 			wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        g.drawImage(wall, this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), null);
+		
+		if (this.getHeight() < this.getWidth()) {
+			g.drawImage(wall, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
+		}
+		if (this.getHeight() > this.getWidth()) {
+			g.drawImage(wall, this.getX(), this.getY(), this.getHeight(), this.getHeight(), null);
+		}
+        
     }
 }
