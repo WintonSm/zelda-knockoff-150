@@ -27,7 +27,7 @@ public class Line extends Object {
 	}
 	
 	/**
-	 * Overrides the draw function of object to draw a line
+	 * Overrides the draw function of object to draw a line/wall.
 	 * @param g the place that the shape is drawn
 	 */
 	@Override
@@ -35,22 +35,7 @@ public class Line extends Object {
 		BufferedImage wall = null;
 		BufferedImage floor = null;
 		
-		try {
-			floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		g.drawImage(floor, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
-		
-		
 		if (this.getHeight() < this.getWidth()) {
-			try {
-				floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			g.drawImage(floor, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
-			
 			try {
 				wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture.png"));
 			} catch (IOException e) {
@@ -59,12 +44,6 @@ public class Line extends Object {
 			g.drawImage(wall, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
 		}
 		if (this.getHeight() > this.getWidth()) {
-			try {
-				floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			g.drawImage(floor, this.getX(), this.getY(), this.getHeight(), this.getHeight(), null);
 			
 			try {
 				wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture2.png"));
