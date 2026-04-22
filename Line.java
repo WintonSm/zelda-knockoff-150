@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * creates an object that is a line
@@ -27,7 +32,12 @@ public class Line extends Object {
 	 */
 	@Override
 	public void draw(Graphics g) {
-		Image wall = Toolkit.getDefaultToolkit().getImage("new-sprites/Level Elements/Wall-overlay-texture");
+		BufferedImage wall = null;
+		try {
+			wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         g.drawImage(wall, this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), null);
     }
 }
