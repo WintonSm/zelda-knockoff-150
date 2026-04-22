@@ -186,6 +186,7 @@ public class View {
 		int width = Main.player.getWidth();
 		int height = Main.player.getHeight();
 		DrawingPanel mazePanel = new DrawingPanel(scale(.25, .1, .5, .8));
+		mazePanel.setBackground(new Color (63, 63, 116));
 		double squareSizeX = mazePanel.getWidth() / (double) width;
 		double squareSizeY = mazePanel.getHeight() / (double) height;
 		
