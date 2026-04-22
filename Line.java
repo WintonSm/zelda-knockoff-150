@@ -33,17 +33,44 @@ public class Line extends Object {
 	@Override
 	public void draw(Graphics g) {
 		BufferedImage wall = null;
+		BufferedImage floor = null;
 		
 		try {
-			wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture.png"));
+			floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		g.drawImage(floor, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
+		
 		
 		if (this.getHeight() < this.getWidth()) {
+			try {
+				floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(floor, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
+			
+			try {
+				wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			g.drawImage(wall, this.getX(), this.getY(), this.getWidth(), this.getWidth(), null);
 		}
 		if (this.getHeight() > this.getWidth()) {
+			try {
+				floor = ImageIO.read(new File("new-sprites/Level Elements/Floor-Texture1.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			g.drawImage(floor, this.getX(), this.getY(), this.getHeight(), this.getHeight(), null);
+			
+			try {
+				wall = ImageIO.read(new File("new-sprites/Level Elements/Wall-overlay-texture2.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			g.drawImage(wall, this.getX(), this.getY(), this.getHeight(), this.getHeight(), null);
 		}
         
