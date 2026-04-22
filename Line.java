@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * creates an object that is a line
@@ -27,6 +27,7 @@ public class Line extends Object {
 	 */
 	@Override
 	public void draw(Graphics g) {
-        g.drawLine(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight());
+		Image wall = Toolkit.getDefaultToolkit().getImage("new-sprites/Level Elements/Wall-overlay-texture");
+        g.drawImage(wall, this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), null);
     }
 }

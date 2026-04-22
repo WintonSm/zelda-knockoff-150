@@ -44,7 +44,7 @@ public class Sprite extends Object implements ImageObserver{
 		}
 		image = file.getScaledInstance((int) dimensions[2], (int)dimensions[3], 0);
 	}
-	
+
 	/**
 	 * Overrides the draw function of object to draw an image
 	 * @param g the place that the shape is drawn
