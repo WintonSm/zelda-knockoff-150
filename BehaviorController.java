@@ -35,6 +35,12 @@ public class BehaviorController {
 		this.floor = floor;
 	}
 	
+	
+	/*
+	 * This is where all the key bindings go.
+	 * If you need to create a new one, copy one of the InputMap/ActionMap statements and
+	 * adjust it to the key you need and the function you're trying to call.
+	 */
 	public void wasdSupport(DrawingPanel panel) {
 
 	    panel.setFocusable(true);
