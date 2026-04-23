@@ -3,6 +3,7 @@
  * An intermediary class for storing and transferring certain data between the view and model logic.
  * @author Quenton Smith
  */
+
 public class BehaviorController {
 	private int floor;
 
@@ -18,7 +19,6 @@ public class BehaviorController {
 	public void setFloor(int floor) {
 		this.floor = floor;
 	}
-	
 	
 	
 }

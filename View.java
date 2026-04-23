@@ -291,7 +291,7 @@ public class View {
 				panel.addObject(enemy);
 			}
 		}
-		Sprite exit = new Sprite("exit.jpg", new double[] {(Main.player.getWidth() - 1) * squareSizeX + 1, panel.getHeight() - Main.player.getHeight() * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+		Sprite exit = new Sprite("new-sprites/Level Elements/Exit.png", new double[] {(Main.player.getWidth() - 1) * squareSizeX + 1, panel.getHeight() - Main.player.getHeight() * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 		panel.addObject(exit);
 	}
 	
