@@ -23,6 +23,8 @@ public class Main {
 			}
 		}
 		
+		
+		
 		screen = new View();
 		
 		screen.addPanel(0);

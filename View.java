@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 public class View {
 	private JFrame frame;
 	private DrawingPanel[] panels;
+	private boolean wasdInit = false;
 	
 	/**
 	 * Creates the JFrame that all of the graphics are placed on
@@ -29,7 +30,7 @@ public class View {
 		endPanel();
 		hp();
 	}
-	
+
 	/**
 	 * gets the panels that are in the panel array
 	 * @return DrawingPanel array
@@ -208,7 +209,11 @@ public class View {
 	        	}
 	        }
 	    }
-	    directions(mazePanel);
+	    //directions(mazePanel);
+	   
+    	BehaviorController.getInstance().wasdSupport(mazePanel);
+    	addEnemies(mazePanel);
+
 	    panels[0] = mazePanel;
 	}
 	
