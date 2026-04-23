@@ -80,7 +80,7 @@ public class View {
 			panel.addObject(new Sprite("win.jpg", scale(0, 0, 1.0, 1.0)));
 			panel.addObject(new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", scale(.3, .5, .2, .3)));
 		} else {
-			panel.addObject(new Sprite("loss.png",  scale(0, 0, 1.0, 1.0)));
+			panel.addObject(new Sprite("loss.jpg",  scale(0, 0, 1.0, 1.0)));
 		}
 		for (int i = 0; i < 4; i++) {
 			this.removePanel(i);
