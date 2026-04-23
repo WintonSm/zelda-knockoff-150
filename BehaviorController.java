@@ -53,10 +53,8 @@ public class BehaviorController {
 	    InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = panel.getActionMap();
 
-	    boolean[] walls = Main.player.getMaze()
-	                                 .getSquare(Main.player.getSquare());
+	    boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
 
-	    // A = left
 	    inputMap.put(KeyStroke.getKeyStroke("A"), "left");
 	    actionMap.put("left", new AbstractAction() {
 	        @Override
@@ -68,7 +66,6 @@ public class BehaviorController {
 	        }
 	    });
 
-	    // W = up
 	    inputMap.put(KeyStroke.getKeyStroke("W"), "up");
 	    actionMap.put("up", new AbstractAction() {
 	        @Override
