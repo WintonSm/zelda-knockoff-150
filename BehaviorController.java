@@ -25,7 +25,6 @@ public class BehaviorController {
 		this.floor = 1;
 	}
 
-
 	//Floor methods
 	public int getFloor() {
 		return floor;
@@ -53,8 +52,6 @@ public class BehaviorController {
 	    Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 
 	    panel.addObject(hero);
-
-	    System.out.println(panel.isFocusOwner());
 
 	    InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = panel.getActionMap();

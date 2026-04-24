@@ -1,4 +1,6 @@
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -144,7 +146,8 @@ public class View {
 		DrawingPanel statPanel = this.panels[2];
 		statPanel.removeAll();
 		
-		JButton healingPotionBtn = new JButton("Use Health Potion");
+		ImageIcon healingPotion = new ImageIcon("new-sprites/Items/Health-Potion1.png"));
+		JButton healingPotionBtn = new JButton(healingPotion);
 		
 		int[] dims = statPanel.scale(.1, .4, .8, .1);
 		healingPotionBtn.setBounds(dims[0], dims[1], dims[2], dims[3]);
