@@ -11,6 +11,7 @@ import javax.swing.*;
 
 public class BehaviorController {
 	private int floor;
+	private boolean startSprite;
 	
 	private static final BehaviorController instance = new BehaviorController();
 	
@@ -18,11 +19,12 @@ public class BehaviorController {
 		if (instance == null) {
 			BehaviorController instance = new BehaviorController();
 		}
-		return instance;	
+		return instance;
 	}
 	
 	private BehaviorController() {
 		this.floor = 1;
+		this.startSprite = true;
 	}
 
 	//Floor methods
@@ -48,11 +50,18 @@ public class BehaviorController {
 	    double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
 	    int x = Main.player.getSquare() % Main.player.getWidth();
 	    int y = Main.player.getSquare() / Main.player.getWidth();
-
-	    Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    
+	    Sprite hero = null;
+	    
+	    if (startSprite) {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems2.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    }
+	    else if (!startSprite) {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    }
 
 	    panel.addObject(hero);
-
+	    
 	    InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = panel.getActionMap();
 
@@ -63,6 +72,7 @@ public class BehaviorController {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (!walls[0]) {
+	            	startSprite = false;
 	                Main.player.moveLeft();
 	                Main.update();
 	            }
@@ -85,6 +95,7 @@ public class BehaviorController {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (!walls[2]) {
+	            	startSprite = true;
 	                Main.player.moveRight();
 	                Main.update();
 	            }

@@ -146,7 +146,7 @@ public class View {
 		DrawingPanel statPanel = this.panels[2];
 		statPanel.removeAll();
 		
-		ImageIcon healingPotion = new ImageIcon("new-sprites/Items/Health-Potion1.png"));
+		ImageIcon healingPotion = new ImageIcon("new-sprites/Items/Health-Potion1.png");
 		JButton healingPotionBtn = new JButton(healingPotion);
 		
 		int[] dims = statPanel.scale(.1, .4, .8, .1);
