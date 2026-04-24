@@ -13,6 +13,7 @@ public class Player {
 	private int maxHp;
 	private int hp;
 	private int damage;
+	private Inventory inventory;
 	
 	/**
 	 * Calls the maze generator and sets the player position
@@ -30,6 +31,8 @@ public class Player {
 		this.maxHp = 100;
 		this.hp = 100;
 		this.damage = 10;
+		this.inventory = new Inventory();
+		inventory.addItem(new HealthPotion(), 2);
 	}
 	
 	/**
@@ -155,6 +158,17 @@ public class Player {
 	}
 	
 	/**
+	 * Heals the player for a certain amount
+	 * @param healing int amount of healing
+	 */
+	public void heal(int healing) {
+		this.hp += healing;
+		if (this.hp > this.maxHp) {
+			this.hp = this.maxHp;
+		}
+	}
+	
+	/**
 	 * damages the player
 	 * @param damage the amount of damage taken
 	 */
@@ -171,5 +185,13 @@ public class Player {
 	 */
 	public int getDamage() {
 		return this.damage;
+	}
+	
+	/**
+	 * Gets the player's current inventory
+	 * @return Inventory inventory
+	 */
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

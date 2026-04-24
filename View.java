@@ -143,6 +143,26 @@ public class View {
 	public void hp() {
 		DrawingPanel statPanel = this.panels[2];
 		statPanel.removeAll();
+		
+		JButton healingPotionBtn = new JButton("Use Health Potion");
+		
+		int[] dims = statPanel.scale(.1, .4, .8, .1);
+		healingPotionBtn.setBounds(dims[0], dims[1], dims[2], dims[3]);
+
+		statPanel.add(healingPotionBtn);
+		
+		healingPotionBtn.addActionListener(e -> {
+			Main.player.getInventory().useHealthPotion();
+			Main.update();
+		});
+		
+		JLabel healingPotions = new JLabel("Potions: " + Main.player.getInventory().getHealthPotionCount());
+		
+		int[] potionCountDimensions = statPanel.scale(.1, .5, .8, .1);
+		healingPotions.setBounds(potionCountDimensions[0], potionCountDimensions[1], potionCountDimensions[2], potionCountDimensions[3]);
+		
+		statPanel.add(healingPotions);
+		
 		JLabel health = new JLabel("Health = " + Main.player.getHp());
 		int[] dimensions = statPanel.scale(.1, .6, .8, .1);
 		health.setBounds(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
