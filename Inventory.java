@@ -39,24 +39,20 @@ public class Inventory {
 		
 		for (ItemStack stack : items) {
 	        if (stack.getItem() instanceof HealthPotion) {
-	            stack.getItem().use();
+	        	stack.getItem().use();
 	            stack.remove(1);
-
-	            if (stack.isEmpty()) {
-	                items.remove(stack);
-	            }
-	            return;
 	        }
-	    }
+		}
 	}
 	
 	/**
-	 * Returns the amount of health potions in inventory (Similarly will be changed to "getItemCount(Item item)"
-	 * @return int of health potions
+	 * Returns the amount of a certain item in inventory 
+	 * @param item to be checked
+	 * @return int of item
 	 */
-	public int getHealthPotionCount() {
+	public int getItemCount(Item item) {
 	    for (ItemStack stack : items) {
-	        if (stack.getItem() instanceof HealthPotion) {
+	        if (stack.getItem().getClass() == item.getClass()) {
 	            return stack.getQuantity();
 	        }
 	    }

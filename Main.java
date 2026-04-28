@@ -4,6 +4,7 @@
  */
 public class Main {
 	static Enemy[] enemyList;
+	static Chest[] chestList;
 	static Player player;
 	static View screen;
 	
@@ -15,6 +16,7 @@ public class Main {
 		player = new Player(15, 15);
 		player.vision();
 		enemyList = new Enemy[30];
+		chestList = new Chest[10];
 		
 		for (int i = 0; i < enemyList.length; i++) {
 			int enemySquare = random(1, player.getHeight() * player.getWidth());
@@ -23,7 +25,12 @@ public class Main {
 			}
 		}
 		
-		
+		for (int i = 0; i < chestList.length; i++) {
+			int chestSquare = random(1, player.getHeight() * player.getWidth());
+			if (isChest(chestSquare) == null) {
+				chestList[i] = new Chest(chestSquare, new HealthPotion());
+			}
+		}
 		
 		screen = new View();
 		
@@ -81,6 +88,16 @@ public class Main {
 				screen.repaint();
 			}
 		}
+		if (isChest(player.getSquare()) != null) {
+			Chest chest = isChest(player.getSquare());
+			for (int i = 0; i < chestList.length; i++) {
+				if(chest.equals(chestList[i])) {
+					player.getInventory().addItem(chest.getContent(), 1);
+					chestList[i] = null;
+					update();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -92,6 +109,15 @@ public class Main {
 		for (int i = 0; i < enemyList.length; i++) {
 			if (enemyList[i] != null && enemyList[i].getSquare() == square) {
 				return enemyList[i];
+			}
+		}
+		return null;
+	}
+	
+	public static Chest isChest(int square) {
+		for (int i = 0; i < chestList.length; i++) {
+			if (chestList[i] != null && chestList[i].getSquare() == square) {
+				return chestList[i];
 			}
 		}
 		return null;

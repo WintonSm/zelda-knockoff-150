@@ -159,7 +159,7 @@ public class View {
 			Main.update();
 		});
 		
-		JLabel healingPotions = new JLabel("Potions: " + Main.player.getInventory().getHealthPotionCount());
+		JLabel healingPotions = new JLabel("Potions: " + Main.player.getInventory().getItemCount(new HealthPotion()));
 		
 		int[] potionCountDimensions = statPanel.scale(.1, .5, .8, .1);
 		healingPotions.setBounds(potionCountDimensions[0], potionCountDimensions[1], potionCountDimensions[2], potionCountDimensions[3]);
@@ -236,6 +236,7 @@ public class View {
 	   
     	BehaviorController.getInstance().wasdSupport(mazePanel);
     	addEnemies(mazePanel);
+    	addChests(mazePanel);
 
 	    panels[0] = mazePanel;
 	}
@@ -321,6 +322,23 @@ public class View {
 		}
 		Sprite exit = new Sprite("new-sprites/Level Elements/Exit.png", new double[] {(Main.player.getWidth() - 1) * squareSizeX + 1, panel.getHeight() - Main.player.getHeight() * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 		panel.addObject(exit);
+	}
+	
+	/**
+	 * Shows the chests when they are within vision
+	 * @param panel the panel to add them to
+	 */
+	public void addChests(DrawingPanel panel) {
+		double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
+		double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
+		for (int square : Main.player.getVision()) {
+			if (Main.isChest(square) != null) {
+				int x = square % Main.player.getWidth();
+				int y = square / Main.player.getWidth();
+				Sprite chest = new Sprite("new-sprites/Level Elements/Chest1.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+				panel.addObject(chest);
+			}
+		}
 	}
 	
     /**
