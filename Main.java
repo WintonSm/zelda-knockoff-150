@@ -3,7 +3,7 @@
  * @author Owen Edmundson
  */
 public class Main {
-	static Enemy[] enemyList;
+	static int[] fightLoc;
 	static Player player;
 	static View screen;
 	
@@ -14,16 +14,11 @@ public class Main {
 	public static void main(String[] args) {
 		player = new Player(15, 15);
 		player.vision();
-		enemyList = new Enemy[30];
+		fightLoc = new int[25];
 		
-		for (int i = 0; i < enemyList.length; i++) {
-			int enemySquare = random(1, player.getHeight() * player.getWidth());
-			if (isEnemy(enemySquare) == null) {
-				enemyList[i] = new Enemy(enemySquare);
-			}
+		for (int i = 0; i < fightLoc.length; i++) {
+			fightLoc[i] = random(1, player.getHeight() * player.getWidth());
 		}
-		
-		
 		
 		screen = new View();
 		
@@ -50,50 +45,52 @@ public class Main {
 		if (player.getSquare() == player.getWidth() * player.getHeight() - 1) {
 			screen.end();
 		}
-		if (isEnemy(player.getSquare()) == null) {
-			for (Enemy enemy : enemyList) {
-				if (enemy != null) {
-					enemy.move();
+		if (isFight(player.getSquare())) {
+			fight();
+		} else {
+			for (int i = 0; i < fightLoc.length; i++) {
+				if (fightLoc[i] != -1) {
+					fightLoc[i] += fightMove(fightLoc[i]);
 				}
 			}
-			screen.removePanel(0);
-			player.addVisited(player.getSquare());
-			player.vision();
-			screen.mazeUpdate();
-			screen.addPanel(0);
-			screen.repaint();
-		} else {
-			Enemy enemy = isEnemy(player.getSquare());
-			if (enemy.getHp() < 1) {
-				for (int i = 0; i < enemyList.length; i++) {
-					if (enemy.equals(enemyList[i])) {
-						enemyList[i] = null;
-						break;
-					}
-				}
-				screen.removePanel(1);
-				update();
-			} else {
-				screen.removePanel(0);
-				screen.removePanel(1);
-				screen.combatVisuals(enemy);
-				screen.addPanel(1);
-				screen.repaint();
+			if (isFight(player.getSquare())) {
+				fight();
+			}
+		}
+		reloadScreen();
+	}
+	
+	public static boolean isFight(int loc) {
+		for (int i = 0; i < fightLoc.length; i++) {
+			if (fightLoc[i] == loc) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private static int fightMove(int loc) {
+		int[] directions = {-1, player.getWidth(), 1, -player.getWidth()};
+		int direction = random(0, 4);
+		if (!player.getMaze().getSquare(loc)[direction] && !isFight(loc + directions[direction])) {
+			return directions[direction];
+		}
+		return 0;
+	}
+	
+	private static void fight() {
+		player.damage(5);
+		for (int i = 0; i < fightLoc.length; i++) {
+			if (fightLoc[i] == player.getSquare()) {
+				fightLoc[i] = -1;
 			}
 		}
 	}
-	
-	/**
-	 * Gets the enemy at a certain square
-	 * @param square the square to check
-	 * @return the enemy object if there is one, null otherwise
-	 */
-	public static Enemy isEnemy(int square) {
-		for (int i = 0; i < enemyList.length; i++) {
-			if (enemyList[i] != null && enemyList[i].getSquare() == square) {
-				return enemyList[i];
-			}
-		}
-		return null;
+	private static void reloadScreen() {
+		screen.removePanel(0);
+		player.addVisited(player.getSquare());
+		player.vision();
+		screen.mazeUpdate();
+		screen.addPanel(0);
+		screen.repaint();
 	}
 }
