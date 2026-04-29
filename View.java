@@ -1,6 +1,4 @@
 import java.awt.Color;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -106,24 +104,8 @@ public class View {
 	 * Sets up the visuals during combat
 	 * @param enemy the enemy being fought
 	 */
-	public void combatVisuals(Enemy enemy) {
-		DrawingPanel itemPanel = this.panels[3];
-		JButton attackButton = new JButton("Attack (10)");
-		int[] dimensions = itemPanel.scale(.1, .4, .8, .1);
-		attackButton.setBounds(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
-		attackButton.addActionListener(e -> {
-			enemy.damage(Main.player.getDamage());
-			Main.player.damage(enemy.getDamage());
-			if (Main.player.getHp() < 1) {
-				end();
-			}
-			itemPanel.removeAll();
-			Main.update();
-		});
-		itemPanel.add(attackButton);
+	public void combatVisuals() {
 		
-		enemyHp(enemy);
-		hp();
 	}
 	
 	/**
@@ -131,12 +113,7 @@ public class View {
 	 * @param enemy the enemy to show the hp of
 	 */
 	public void enemyHp(Enemy enemy) {
-		DrawingPanel combatPanel = this.panels[1];
-		combatPanel.removeAll();
-		JLabel enemyHealth = new JLabel("Health = " + enemy.getHp());
-		int[] dimensions = combatPanel.scale(.1, .6, .8, .1);
-		enemyHealth.setBounds(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
-		combatPanel.add(enemyHealth);
+		
 	}
 	
 	/**
@@ -146,8 +123,7 @@ public class View {
 		DrawingPanel statPanel = this.panels[2];
 		statPanel.removeAll();
 		
-		ImageIcon healingPotion = new ImageIcon("new-sprites/Items/Health-Potion1.png");
-		JButton healingPotionBtn = new JButton(healingPotion);
+		JButton healingPotionBtn = new JButton("Use Health Potion");
 		
 		int[] dims = statPanel.scale(.1, .4, .8, .1);
 		healingPotionBtn.setBounds(dims[0], dims[1], dims[2], dims[3]);
@@ -189,8 +165,8 @@ public class View {
 	 */
 	public void fightPanel() {
 		DrawingPanel fight = new DrawingPanel(scale(.25, .1, .5, .8));
-		fight.setBackground(new Color(255, 0, 0));
-		fight.addObject(new Sprite("new-sprites/Enemies/Skeleton-basic.png", fight.scale(.25, .05, .6, .5)));
+		fight.setBackground(new Color (63, 63, 116));
+		
 		panels[1] = fight;
 	}
 	
@@ -254,53 +230,7 @@ public class View {
 		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 		panel.addObject(hero);
 		
-		if (!walls[0]) {
-			JButton leftButton = new JButton();
-			Sprite leftArrow = new Sprite("leftArrow.png", new double[] {(x - 1) * squareSizeX, panel.getHeight() - (y + 1) * squareSizeY, squareSizeX, squareSizeY});
-			leftButton.setBounds((int) ((x - .3) * squareSizeX), (int) (panel.getHeight() - (y + 1) * squareSizeY), (int) (squareSizeX * .3), (int) squareSizeY);
-			leftButton.addActionListener(e -> {
-				Main.player.moveLeft();
-				Main.update();
-			});
-			panel.add(leftButton);
-			panel.addObject(leftArrow);
-		}
 		
-		if (!walls[1]) {
-			JButton upButton = new JButton();
-			Sprite upArrow = new Sprite("upArrow.png", new double[] {x * squareSizeX, panel.getHeight() - (y + 2) * squareSizeY, squareSizeX, squareSizeY});
-			upButton.setBounds((int) (x * squareSizeX), (int) (panel.getHeight() - (y + 1.3) * squareSizeY), (int) squareSizeX, (int) (squareSizeY * .3));
-			upButton.addActionListener(e -> {
-				Main.player.moveUp();
-				Main.update();
-			});
-			panel.add(upButton);
-			panel.addObject(upArrow);
-		}
-		
-		if (!walls[2]) {
-			JButton rightButton = new JButton();
-			Sprite rightArrow = new Sprite("rightArrow.png", new double[] {(x + 1) * squareSizeX, panel.getHeight() - (y + 1) * squareSizeY, squareSizeX, squareSizeY});
-			rightButton.setBounds((int) ((x + 1) * squareSizeX), (int) (panel.getHeight() - (y + 1) * squareSizeY), (int) (squareSizeX * .3), (int) squareSizeY);
-			rightButton.addActionListener(e -> {
-				Main.player.moveRight();
-				Main.update();
-			});
-			panel.add(rightButton);
-			panel.addObject(rightArrow);
-		}
-		
-		if (!walls[3]) {
-			JButton downButton = new JButton();
-			Sprite downArrow = new Sprite("downArrow.png", new double[] {x * squareSizeX, panel.getHeight() - y * squareSizeY, squareSizeX, squareSizeY});
-			downButton.setBounds((int) (x * squareSizeX), (int) (panel.getHeight() - y * squareSizeY), (int) squareSizeX, (int) (squareSizeY * .3));
-			downButton.addActionListener(e -> {
-				Main.player.moveDown();
-				Main.update();
-			});
-			panel.add(downButton);
-			panel.addObject(downArrow);
-		}
 		addEnemies(panel);
 	}
 	
@@ -312,7 +242,7 @@ public class View {
 		double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
 		double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
 		for (int square : Main.player.getVision()) {
-			if (Main.isEnemy(square) != null) {
+			if (Main.isFight(square)) {
 				int x = square % Main.player.getWidth();
 				int y = square / Main.player.getWidth();
 				Sprite enemy = new Sprite("new-sprites/Enemies/Skeleton-basic.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});

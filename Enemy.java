@@ -2,7 +2,7 @@
  * Keeps track of the status of enemies
  * @author Owen Edmundson
  */
-public class Enemy {
+abstract class Enemy {
 	private int square;
 	private int hp;
 	private int damage;
@@ -11,10 +11,10 @@ public class Enemy {
 	 * creates an enemy at a specified square
 	 * @param square the square that the enemy is on
 	 */
-	public Enemy(int square) {
-		this.hp = Main.random(20, 30);
-		this.damage = Main.random(5,  10);
+	public Enemy(int square, int damage, int hp) {
 		this.square = square;
+		this.damage = damage;
+		this.hp = hp;
 	}
 	
 	/**
@@ -53,10 +53,6 @@ public class Enemy {
 	 * Moves the enemy in a random direction
 	 */
 	public void move() {
-		int[] directions = {-1, Main.player.getWidth(), 1, -Main.player.getWidth()};
-		int direction = Main.random(0, 4);
-		if (!Main.player.getMaze().getSquare(this.square)[direction] && Main.isEnemy(this.square + directions[direction]) == null) {
-			this.square += directions[direction];
-		}
+		
 	}
 }
