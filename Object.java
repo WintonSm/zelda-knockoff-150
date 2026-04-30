@@ -64,6 +64,11 @@ abstract class Object {
 		return this.height;
 	}
 	
+	void move(int x, int y) {
+		this.x += x;
+		this.y += y;
+	}
+	
 	/**
 	 * Makes subclasses require a draw method
 	 * @param g the place to draw the object

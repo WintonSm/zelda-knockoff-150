@@ -112,7 +112,12 @@ public class Main {
 	}
 	
 	private static void fight() {
-		player.damage(5);
+		screen.removePanel(0);
+		screen.addPanel(1);
+		Enemy[] enemies = new Enemy[1];
+		enemies[0] = new Skeleton(100, screen.getPanels()[1]);
+		screen.combatVisuals(enemies);
+		screen.repaint();
 		for (int i = 0; i < fightLoc.length; i++) {
 			if (fightLoc[i] == player.getSquare()) {
 				fightLoc[i] = -1;

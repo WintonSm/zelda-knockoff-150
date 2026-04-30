@@ -103,22 +103,6 @@ public class View {
 	}
 	
 	/**
-	 * Sets up the visuals during combat
-	 * @param enemy the enemy being fought
-	 */
-	public void combatVisuals() {
-		
-	}
-	
-	/**
-	 * Shows the hp of the enemy
-	 * @param enemy the enemy to show the hp of
-	 */
-	public void enemyHp(Enemy enemy) {
-		
-	}
-	
-	/**
 	 * shows the hp of the player
 	 */
 	public void hp() {
@@ -167,13 +151,48 @@ public class View {
 	}
 	
 	/**
-	 * The panel showing the enemy
+	 * The panel showing the fight
 	 */
 	public void fightPanel() {
+		int width = Main.player.getWidth();
+		int height = Main.player.getHeight();
 		DrawingPanel fight = new DrawingPanel(scale(.25, .1, .5, .8));
 		fight.setBackground(new Color (63, 63, 116));
-		
+		double squareSizeX = fight.getWidth() / (double) width;
+		double squareSizeY = fight.getHeight() / (double) height;
+		for (int i = 0; i < height; i++) {
+	        for (int j = 0; j < width; j++) {
+	        	fight.addObject(new FightFloor(new double[] {squareSizeX * j, fight.getHeight() - squareSizeY * (i + 1), squareSizeX, squareSizeY}));
+	        }
+		}
+
 		panels[1] = fight;
+	}
+	
+	/**
+	 * Sets up the visuals during combat
+	 * @param enemy the enemy being fought
+	 */
+	public void combatVisuals(Enemy[] enemies) {
+		int width = Main.player.getWidth();
+		int height = Main.player.getHeight();
+		DrawingPanel fight = this.panels[1];
+		double squareSizeX = fight.getWidth() / (double) width;
+		double squareSizeY = fight.getHeight() / (double) height;
+		for (Enemy enemy : enemies) {
+			fight.addObject(enemy.getSprite(fight));
+		}
+		
+		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {8 * squareSizeX + 1, fight.getHeight() - (0 + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+		fight.addObject(hero);
+	}
+	
+	/**
+	 * Shows the hp of the enemy
+	 * @param enemy the enemy to show the hp of
+	 */
+	public void enemyHp(Enemy enemy) {
+		
 	}
 	
 	/**
