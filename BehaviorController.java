@@ -38,12 +38,10 @@ public class BehaviorController {
 	    actionMap.put("left", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-	        	
-	            if (!walls[0]) {
-	                Main.player.moveLeft();
-	                Main.update();
-	            }
+	        	Main.player.moveLeft();
+	        	if (!Main.player.getInFight()) {
+	        		Main.update();
+	        	}
 	        }
 	    });
 
@@ -51,12 +49,10 @@ public class BehaviorController {
 	    actionMap.put("up", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-	        	
-	            if (!walls[1]) {
-	                Main.player.moveUp();
-	                Main.update();
-	            }
+	        	Main.player.moveUp();
+	        	if (!Main.player.getInFight()) {
+	        		Main.update();
+	        	}
 	        }
 	    });
 
@@ -64,12 +60,10 @@ public class BehaviorController {
 	    actionMap.put("right", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-	        	
-	            if (!walls[2]) {
-	                Main.player.moveRight();
-	                Main.update();
-	            }
+	        	Main.player.moveRight();
+	        	if (!Main.player.getInFight()) {
+	        		Main.update();
+	        	}
 	        }
 	    });
 
@@ -77,12 +71,10 @@ public class BehaviorController {
 	    actionMap.put("down", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-	        	
-	        	if (!walls[3]) {
-	                Main.player.moveDown();
-	                Main.update();
-	            }
+	        	Main.player.moveDown();
+	        	if (!Main.player.getInFight()) {
+	        		Main.update();
+	        	}
 	        }
 	    });
 	}

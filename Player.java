@@ -82,7 +82,8 @@ public class Player {
 		if (this.inFight) {
 			
 		} else {
-			this.square -= 1;
+			if (!this.maze.getSquares()[this.square][0])
+				this.square -= 1;
 		}
 		heroFacing = true;
 	}
@@ -90,20 +91,35 @@ public class Player {
 	 * Moves the player up if there is no wall in the way
 	 */
 	public void moveUp() {
-		this.square += width;
+		if (this.inFight) {
+			
+		} else {
+			if (!this.maze.getSquares()[this.square][1])
+				this.square += this.width;
+		}
 	}
 	/**
 	 * Moves the player to the right if there is no wall in the way
 	 */
 	public void moveRight() {
-		this.square += 1;
+		if (this.inFight) {
+			
+		} else {
+			if (!this.maze.getSquares()[this.square][2])
+				this.square += 1;
+		}
 		heroFacing = false;
 	}
 	/**
 	 * Moves the player down if there is no wall in the way
 	 */
 	public void moveDown() {
-		this.square -= this.width;
+		if (this.inFight) {
+			
+		} else {
+			if (!this.maze.getSquares()[this.square][3])
+				this.square -= this.width;
+		}
 	}
 	
 	/**
@@ -132,6 +148,10 @@ public class Player {
 	
 	public boolean getFacing() {
 		return this.heroFacing;
+	}
+	
+	public boolean getInFight() {
+		return this.inFight;
 	}
 	
 	/**
