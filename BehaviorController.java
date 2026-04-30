@@ -9,7 +9,6 @@ import javax.swing.*;
  */
 
 public class BehaviorController {
-	private int floor;
 	private boolean heroFacing;
 	
 	private static final BehaviorController instance = new BehaviorController();
@@ -22,18 +21,7 @@ public class BehaviorController {
 	}
 	
 	private BehaviorController() {
-		this.floor = 1;
 		this.heroFacing = false;
-	}
-
-
-	//Floor methods
-	public int getFloor() {
-		return floor;
-	}
-
-	public void setFloor(int floor) {
-		this.floor = floor;
 	}
 	
 	
@@ -61,21 +49,20 @@ public class BehaviorController {
 	    }
 	    
 	    panel.addObject(hero);
-
-	    InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+	    
+    	InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = panel.getActionMap();
-
-	    boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-
+	    
 	    inputMap.put(KeyStroke.getKeyStroke("A"), "left");
 	    actionMap.put("left", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
+	        	
 	            if (!walls[0]) {
 	            	heroFacing = true;
 	                Main.player.moveLeft();
 	                Main.update();
-	                
 	            }
 	        }
 	    });
@@ -84,6 +71,8 @@ public class BehaviorController {
 	    actionMap.put("up", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
+	        	
 	            if (!walls[1]) {
 	                Main.player.moveUp();
 	                Main.update();
@@ -95,12 +84,12 @@ public class BehaviorController {
 	    actionMap.put("right", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
+	        	
 	            if (!walls[2]) {
 	            	heroFacing = false;
 	                Main.player.moveRight();
 	                Main.update();
-	                
-	                
 	            }
 	        }
 	    });
@@ -109,6 +98,8 @@ public class BehaviorController {
 	    actionMap.put("down", new AbstractAction() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
+	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
+	        	
 	        	if (!walls[3]) {
 	                Main.player.moveDown();
 	                Main.update();
