@@ -189,10 +189,12 @@ public class View {
 	 */
 	public void mazePanel() {
 		boolean[][] maze = Main.player.getMaze().getSquares();
+		int floor = Main.floor;
 		int width = Main.player.getWidth();
 		int height = Main.player.getHeight();
 		DrawingPanel mazePanel = new DrawingPanel(scale(.25, .1, .5, .8));
 		mazePanel.setBackground(new Color (63, 63, 116));
+		
 		double squareSizeX = mazePanel.getWidth() / (double) width;
 		double squareSizeY = mazePanel.getHeight() / (double) height;
 		
@@ -219,6 +221,12 @@ public class View {
     	BehaviorController.getInstance().wasdSupport(mazePanel);
     	addEnemies(mazePanel);
     	addChests(mazePanel);
+    	
+    	JLabel floors = new JLabel("Floor: " + floor);
+    	int[] dimensions = mazePanel.scale(.05, 0, .5, .1);
+		floors.setBounds(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+		
+		mazePanel.add(floors);
 
 	    panels[0] = mazePanel;
 	}
