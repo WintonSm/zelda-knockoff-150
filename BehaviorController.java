@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class BehaviorController {
 	private int floor;
+	private boolean heroFacing;
 	
 	private static final BehaviorController instance = new BehaviorController();
 	
@@ -22,6 +23,7 @@ public class BehaviorController {
 	
 	private BehaviorController() {
 		this.floor = 1;
+		this.heroFacing = false;
 	}
 
 
@@ -48,9 +50,16 @@ public class BehaviorController {
 	    double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
 	    int x = Main.player.getSquare() % Main.player.getWidth();
 	    int y = Main.player.getSquare() / Main.player.getWidth();
-
-	    Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
-
+	    
+	    Sprite hero = null;
+	    
+	    if (heroFacing) {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    }
+	    if (!heroFacing) {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems2.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    }
+	    
 	    panel.addObject(hero);
 
 	    InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -63,8 +72,10 @@ public class BehaviorController {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (!walls[0]) {
+	            	heroFacing = true;
 	                Main.player.moveLeft();
 	                Main.update();
+	                
 	            }
 	        }
 	    });
@@ -85,8 +96,11 @@ public class BehaviorController {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (!walls[2]) {
+	            	heroFacing = false;
 	                Main.player.moveRight();
 	                Main.update();
+	                
+	                
 	            }
 	        }
 	    });
