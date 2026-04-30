@@ -21,6 +21,15 @@ public class Player {
 	 * @param height the height of the maze
 	 */
 	public Player(int width, int height) {
+		generateMaze(width, height);
+		this.maxHp = 100;
+		this.hp = 100;
+		this.damage = 10;
+		this.inventory = new Inventory();
+		inventory.addItem(new HealthPotion(), 2);
+	}
+	
+	public void generateMaze(int width, int height) {
 		this.maze = new MazeGenerator(width, height);
 		this.width = width;
 		this.height = height;
@@ -28,11 +37,6 @@ public class Player {
 		this.visited = new boolean[width * height];
 		this.visited[this.square] = true;
 		this.vision = new ArrayList<Integer>();
-		this.maxHp = 100;
-		this.hp = 100;
-		this.damage = 10;
-		this.inventory = new Inventory();
-		inventory.addItem(new HealthPotion(), 2);
 	}
 	
 	/**

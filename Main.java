@@ -3,7 +3,6 @@
  * @author Owen Edmundson
  */
 public class Main {
-	static Enemy[] enemyList;
 	static Chest[] chestList;
 	static int[] fightLoc;
 	static Player player;
@@ -16,7 +15,6 @@ public class Main {
 	public static void main(String[] args) {
 		player = new Player(15, 15);
 		player.vision();
-		enemyList = new Enemy[30];
 		chestList = new Chest[10];
 		fightLoc = new int[25];
 		
@@ -54,7 +52,18 @@ public class Main {
 	 */
 	public static void update() {
 		if (player.getSquare() == player.getWidth() * player.getHeight() - 1) {
-			screen.end();
+			player.generateMaze(player.getWidth(), player.getHeight());
+			
+			for (int i = 0; i < fightLoc.length; i++) {
+				fightLoc[i] = random(1, player.getHeight() * player.getWidth());
+			}
+			
+			for (int i = 0; i < chestList.length; i++) {
+				int chestSquare = random(1, player.getHeight() * player.getWidth());
+				if (isChest(chestSquare) == null) {
+					chestList[i] = new Chest(chestSquare, new HealthPotion());
+				}
+			}
 		}
 		if (isFight(player.getSquare())) {
 			fight();
