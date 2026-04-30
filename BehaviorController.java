@@ -9,8 +9,6 @@ import javax.swing.*;
  */
 
 public class BehaviorController {
-	private boolean heroFacing;
-	
 	private static final BehaviorController instance = new BehaviorController();
 	
 	public static BehaviorController getInstance() {
@@ -21,7 +19,6 @@ public class BehaviorController {
 	}
 	
 	private BehaviorController() {
-		this.heroFacing = false;
 	}
 	
 	
@@ -33,22 +30,6 @@ public class BehaviorController {
 	public void wasdSupport(DrawingPanel panel) {
 
 	    panel.setFocusable(true);
-
-	    double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
-	    double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
-	    int x = Main.player.getSquare() % Main.player.getWidth();
-	    int y = Main.player.getSquare() / Main.player.getWidth();
-	    
-	    Sprite hero = null;
-	    
-	    if (heroFacing) {
-	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
-	    }
-	    if (!heroFacing) {
-	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems2.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
-	    }
-	    
-	    panel.addObject(hero);
 	    
     	InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 	    ActionMap actionMap = panel.getActionMap();
@@ -60,7 +41,6 @@ public class BehaviorController {
 	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
 	        	
 	            if (!walls[0]) {
-	            	heroFacing = true;
 	                Main.player.moveLeft();
 	                Main.update();
 	            }
@@ -87,7 +67,6 @@ public class BehaviorController {
 	        	boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
 	        	
 	            if (!walls[2]) {
-	            	heroFacing = false;
 	                Main.player.moveRight();
 	                Main.update();
 	            }

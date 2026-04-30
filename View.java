@@ -182,9 +182,11 @@ public class View {
 		for (Enemy enemy : enemies) {
 			fight.addObject(enemy.getSprite(fight));
 		}
-		
-		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {8 * squareSizeX + 1, fight.getHeight() - (0 + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+		int x = Main.player.getFightSquare() % width;
+		int y = Main.player.getFightSquare() / height;
+		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x  * squareSizeX + 1, fight.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
 		fight.addObject(hero);
+		BehaviorController.getInstance().wasdSupport(fight);
 	}
 	
 	/**
@@ -235,9 +237,18 @@ public class View {
 	        	}
 	        }
 	    }
-	    //directions(mazePanel);
 	   
     	BehaviorController.getInstance().wasdSupport(mazePanel);
+    	
+    	Sprite hero = null;
+    	int x = Main.player.getSquare() % Main.player.getWidth();
+		int y = Main.player.getSquare() / Main.player.getWidth();
+	    if (Main.player.getFacing()) {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, mazePanel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    } else {
+	    	hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems2.png", new double[] {x * squareSizeX + 1, mazePanel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
+	    }
+	    mazePanel.addObject(hero);
     	addEnemies(mazePanel);
     	addChests(mazePanel);
     	
@@ -248,24 +259,6 @@ public class View {
 		mazePanel.add(floors);
 
 	    panels[0] = mazePanel;
-	}
-	
-	/**
-	 * Shows the buttons to move around the maze
-	 * @param panel the panel to place them on
-	 */
-	public void directions(DrawingPanel panel) {
-		double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
-		double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
-		int x = Main.player.getSquare() % Main.player.getWidth();
-		int y = Main.player.getSquare() / Main.player.getWidth();
-		boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-		
-		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
-		panel.addObject(hero);
-		
-		
-		addEnemies(panel);
 	}
 	
 	/**

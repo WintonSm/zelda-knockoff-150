@@ -5,6 +5,7 @@ import java.util.ArrayList;
  */
 public class Player {
 	private int square;
+	private int fightSquare;
 	private int width;
 	private int height;
 	private MazeGenerator maze;
@@ -14,6 +15,9 @@ public class Player {
 	private int hp;
 	private int damage;
 	private Inventory inventory;
+	private boolean inFight;
+	private int movement;
+	private boolean heroFacing;
 	
 	/**
 	 * Calls the maze generator and sets the player position
@@ -27,6 +31,8 @@ public class Player {
 		this.damage = 10;
 		this.inventory = new Inventory();
 		inventory.addItem(new HealthPotion(), 2);
+		this.inFight = false;
+		this.heroFacing = false;
 	}
 	
 	/**
@@ -73,33 +79,31 @@ public class Player {
 	 * Moves the player to the left if there is no wall in the way
 	 */
 	public void moveLeft() {
-		if (!this.maze.getSquare(this.square)[0]) {
+		if (this.inFight) {
+			
+		} else {
 			this.square -= 1;
 		}
+		heroFacing = true;
 	}
 	/**
 	 * Moves the player up if there is no wall in the way
 	 */
 	public void moveUp() {
-		if (!this.maze.getSquare(this.square)[1]) {
-			this.square += width;
-		}
+		this.square += width;
 	}
 	/**
 	 * Moves the player to the right if there is no wall in the way
 	 */
 	public void moveRight() {
-		if (!this.maze.getSquare(this.square)[2]) {
-			this.square += 1;
-		}
+		this.square += 1;
+		heroFacing = false;
 	}
 	/**
 	 * Moves the player down if there is no wall in the way
 	 */
 	public void moveDown() {
-		if (!this.maze.getSquare(this.square)[3]) {
-			this.square -= this.width;
-		}
+		this.square -= this.width;
 	}
 	
 	/**
@@ -126,6 +130,10 @@ public class Player {
 		return this.height;
 	}
 	
+	public boolean getFacing() {
+		return this.heroFacing;
+	}
+	
 	/**
 	 * gets an array of the squares visited by the player
 	 * @return boolean array visited
@@ -140,6 +148,10 @@ public class Player {
 	 */
 	public int getSquare() {
 		return square;
+	}
+	
+	public int getFightSquare() {
+		return fightSquare;
 	}
 	
 	/**
@@ -194,6 +206,11 @@ public class Player {
 	 */
 	public int getDamage() {
 		return this.damage;
+	}
+	
+	public void switchFight() {
+		this.fightSquare = 7;
+		this.inFight = !this.inFight;
 	}
 	
 	/**

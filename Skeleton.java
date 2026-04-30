@@ -4,4 +4,9 @@ public class Skeleton extends Enemy {
 		super(square, Main.random(5, 8), Main.random(20, 30), "new-sprites/Enemies/Skeleton-basic.png", panel);
 	}
 	
+	
+	@Override
+	public void move() {
+		int target = Main.player.getSquare();
+	}
 }
