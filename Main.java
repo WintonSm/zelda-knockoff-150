@@ -7,6 +7,7 @@ public class Main {
 	static int[] fightLoc;
 	static Player player;
 	static View screen;
+	static int floor;
 	
 	/**
 	 * The main method which runs the program
@@ -14,6 +15,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		player = new Player(15, 15);
+		floor = 1;
 		player.vision();
 		chestList = new Chest[10];
 		fightLoc = new int[25];
@@ -52,6 +54,8 @@ public class Main {
 	 */
 	public static void update() {
 		if (player.getSquare() == player.getWidth() * player.getHeight() - 1) {
+			floor++;
+			
 			player.generateMaze(player.getWidth(), player.getHeight());
 			
 			for (int i = 0; i < fightLoc.length; i++) {

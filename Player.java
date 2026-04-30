@@ -29,6 +29,11 @@ public class Player {
 		inventory.addItem(new HealthPotion(), 2);
 	}
 	
+	/**
+	 * Creates a completely new maze
+	 * @param width width of the maze
+	 * @param height height of the maze
+	 */
 	public void generateMaze(int width, int height) {
 		this.maze = new MazeGenerator(width, height);
 		this.width = width;
