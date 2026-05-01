@@ -8,17 +8,19 @@ public class Main {
 	static Player player;
 	static View screen;
 	static int floor;
+	static int mazeLength;
 	
 	/**
 	 * The main method which runs the program
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		player = new Player(15, 15);
+		mazeLength = 10;
+		player = new Player(mazeLength, mazeLength);
 		floor = 1;
 		player.vision();
 		chestList = new Chest[10];
-		fightLoc = new int[25];
+		fightLoc = new int[20];
 		
 		for (int i = 0; i < fightLoc.length; i++) {
 			fightLoc[i] = random(1, player.getHeight() * player.getWidth());
@@ -54,20 +56,7 @@ public class Main {
 	 */
 	public static void update() {
 		if (player.getSquare() == player.getWidth() * player.getHeight() - 1) {
-			floor++;
-			
-			player.generateMaze(player.getWidth(), player.getHeight());
-			
-			for (int i = 0; i < fightLoc.length; i++) {
-				fightLoc[i] = random(1, player.getHeight() * player.getWidth());
-			}
-			
-			for (int i = 0; i < chestList.length; i++) {
-				int chestSquare = random(1, player.getHeight() * player.getWidth());
-				if (isChest(chestSquare) == null) {
-					chestList[i] = new Chest(chestSquare, new HealthPotion());
-				}
-			}
+			newFloor();
 		}
 		if (isFight(player.getSquare())) {
 			fight();
@@ -112,7 +101,12 @@ public class Main {
 	}
 	
 	private static void fight() {
-		player.damage(5);
+		player.damage(random(5, 8));
+		
+		if(player.getHp() <= 0) {
+			screen.end();
+		}
+		
 		for (int i = 0; i < fightLoc.length; i++) {
 			if (fightLoc[i] == player.getSquare()) {
 				fightLoc[i] = -1;
@@ -135,5 +129,27 @@ public class Main {
 			}
 		}
 		return null;
+	}
+	
+	public static void newFloor() {
+		floor++;
+		
+		if (floor % 2 == 0) mazeLength++;
+		
+		player.generateMaze(mazeLength, mazeLength);
+		
+		fightLoc = new int[mazeLength * 2];
+		chestList = new Chest[mazeLength];
+		
+		for (int i = 0; i < fightLoc.length; i++) {
+			fightLoc[i] = random(1, player.getHeight() * player.getWidth());
+		}
+		
+		for (int i = 0; i < chestList.length; i++) {
+			int chestSquare = random(1, player.getHeight() * player.getWidth());
+			if (isChest(chestSquare) == null) {
+				chestList[i] = new Chest(chestSquare, new HealthPotion());
+			}
+		}
 	}
 }

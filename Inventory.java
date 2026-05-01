@@ -39,6 +39,7 @@ public class Inventory {
 		
 		for (ItemStack stack : items) {
 	        if (stack.getItem() instanceof HealthPotion) {
+	        	if (stack.getQuantity() == 0) return;
 	        	stack.getItem().use();
 	            stack.remove(1);
 	        }
