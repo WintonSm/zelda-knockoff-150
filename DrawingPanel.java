@@ -53,6 +53,10 @@ public class DrawingPanel extends JPanel {
     	this.objects.add(object);
     }
     
+    public void removeObject(Object object) {
+    	this.objects.remove(object);
+    }
+    
     /**
      * removes all of the sprites from the ArrayList of Ojects
      * used for removing the directions from the maze panel

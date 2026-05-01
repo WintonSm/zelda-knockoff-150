@@ -134,6 +134,9 @@ public class Main {
 				fightLoc[i] = -1;
 			}
 		}
+		player.switchFight();
+		screen.removePanel(1);
+		screen.addPanel(0);
 	}
 	private static void reloadScreen() {
 		screen.removePanel(0);

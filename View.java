@@ -174,9 +174,14 @@ public class View {
 	 * @param enemy the enemy being fought
 	 */
 	public void combatVisuals(Enemy[] enemies) {
+		DrawingPanel fight = this.panels[1];
+		for (Object object : fight.getObjects()) {
+			if (!(object instanceof FightFloor)) {
+				fight.removeObject(object);
+			}
+		}
 		int width = Main.player.getWidth();
 		int height = Main.player.getHeight();
-		DrawingPanel fight = this.panels[1];
 		double squareSizeX = fight.getWidth() / (double) width;
 		double squareSizeY = fight.getHeight() / (double) height;
 		for (Enemy enemy : enemies) {
