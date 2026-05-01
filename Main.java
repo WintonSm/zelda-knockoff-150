@@ -121,13 +121,14 @@ public class Main {
 		screen.repaint();
 		boolean enemiesAlive = true;
 		while (player.getHp() > 0 && enemiesAlive) {
-			player.damage(1);
 			enemiesAlive = false;
 			for (Enemy enemy : enemies) {
+				enemy.move(random(0, 4));
 				if (enemy.getHp() > 0) {
 					enemiesAlive = true;
 				}
 			}
+			screen.repaint();
 		}
 		for (int i = 0; i < fightLoc.length; i++) {
 			if (fightLoc[i] == player.getSquare()) {

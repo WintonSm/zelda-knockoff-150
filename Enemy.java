@@ -7,6 +7,8 @@ abstract class Enemy {
 	private int hp;
 	private int damage;
 	private Sprite sprite;
+	private double squareSizeX;
+	private double squareSizeY;
 	
 	/**
 	 * creates an enemy at a specified square
@@ -16,8 +18,8 @@ abstract class Enemy {
 		this.square = square;
 		this.damage = damage;
 		this.hp = hp;
-		double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
-		double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
+		this.squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
+		this.squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
 		int x = this.square % Main.player.getWidth();
 		int y = this.square / Main.player.getWidth();
 		this.sprite = new Sprite(url, new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
@@ -62,7 +64,17 @@ abstract class Enemy {
 	/**
 	 * Moves the enemy in a random direction
 	 */
-	public void move() {
-		
+	public void move(int direction) {
+		int[] directions = {-1, Main.player.getWidth(), 1, -Main.player.getWidth()};
+		this.square += directions[direction];
+		if (direction == 0) {
+			this.sprite.move(-(int) squareSizeY, 0);
+		} else if (direction == 1) {
+			this.sprite.move(0, (int) squareSizeY);
+		} else if (direction == 2) {
+			this.sprite.move((int) squareSizeY, 0);
+		} else {
+			this.sprite.move(0, -(int) squareSizeY);
+		}
 	}
 }
