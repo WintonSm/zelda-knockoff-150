@@ -11,7 +11,10 @@ public class HealthPotion extends Item {
 	public HealthPotion() {
 		this.type = "Health Potion";
 	}
-
+	
+	/**
+	 * uses the potion and heals the player
+	 */
 	@Override
 	public void use() {
 		Main.player.heal(10);

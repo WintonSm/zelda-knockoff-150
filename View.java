@@ -12,13 +12,12 @@ import javax.swing.JLabel;
 public class View {
 	private JFrame frame;
 	private DrawingPanel[] panels;
-	private boolean wasdInit = false;
 	
 	/**
 	 * Creates the JFrame that all of the graphics are placed on
 	 */
 	public View() {
-		this.panels = new DrawingPanel[5];
+		this.panels = new DrawingPanel[4];
 		this.frame = new JFrame();
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -26,7 +25,6 @@ public class View {
 		this.frame.setVisible(true);
 		this.frame.getContentPane().setBackground(new Color(0, 0, 0));
 		mazePanel();
-		fightPanel();
 		statPanel();
 		itemPanel();
 		endPanel();
@@ -70,24 +68,24 @@ public class View {
 	 */
 	public void endPanel() {
 		DrawingPanel end = new DrawingPanel(scale(0, 0, 1.0, 1.0));
-		this.panels[4] = end;
+		this.panels[3] = end;
 	}
 	
 	/**
 	 * Shows either the win screen or the loss screen depending on if you are alive
 	 */
 	public void end() {
-		DrawingPanel panel = this.panels[4];
+		DrawingPanel panel = this.panels[3];
 		if (Main.player.getHp() > 0) {
 			panel.addObject(new Sprite("win.jpg", scale(0, 0, 1.0, 1.0)));
 			panel.addObject(new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", scale(.3, .5, .2, .3)));
 		} else {
 			panel.addObject(new Sprite("loss.jpg",  scale(0, 0, 1.0, 1.0)));
 		}
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			this.removePanel(i);
 		}
-		this.addPanel(4);
+		this.addPanel(3);
 	}
 	
 	/**
@@ -99,30 +97,14 @@ public class View {
 		
 		items.addObject(new Sprite("new-sprites/Items/Sword-basic.png", items.scale(.1, .05, .8, .3)));
 		
-		panels[3] = items;
-	}
-	
-	/**
-	 * Sets up the visuals during combat
-	 * @param enemy the enemy being fought
-	 */
-	public void combatVisuals() {
-		
-	}
-	
-	/**
-	 * Shows the hp of the enemy
-	 * @param enemy the enemy to show the hp of
-	 */
-	public void enemyHp(Enemy enemy) {
-		
+		panels[2] = items;
 	}
 	
 	/**
 	 * shows the hp of the player
 	 */
 	public void hp() {
-		DrawingPanel statPanel = this.panels[2];
+		DrawingPanel statPanel = this.panels[1];
 		statPanel.removeAll();
 		
 		ImageIcon healingPotion = new ImageIcon("new-sprites/Items/Health-Potion-Large.png");
@@ -163,17 +145,7 @@ public class View {
 		
 		stats.addObject(new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", stats.scale(.1, .05, .8, .3)));
 		
-		panels[2] = stats;
-	}
-	
-	/**
-	 * The panel showing the enemy
-	 */
-	public void fightPanel() {
-		DrawingPanel fight = new DrawingPanel(scale(.25, .1, .5, .8));
-		fight.setBackground(new Color (63, 63, 116));
-		
-		panels[1] = fight;
+		panels[1] = stats;
 	}
 	
 	/**
@@ -216,7 +188,6 @@ public class View {
 	        	}
 	        }
 	    }
-	    //directions(mazePanel);
 	   
     	BehaviorController.getInstance().wasdSupport(mazePanel);
     	addEnemies(mazePanel);
@@ -229,24 +200,6 @@ public class View {
 		mazePanel.add(floors);
 
 	    panels[0] = mazePanel;
-	}
-	
-	/**
-	 * Shows the buttons to move around the maze
-	 * @param panel the panel to place them on
-	 */
-	public void directions(DrawingPanel panel) {
-		double squareSizeX = panel.getWidth() / (double) Main.player.getWidth();
-		double squareSizeY = panel.getHeight() / (double) Main.player.getHeight();
-		int x = Main.player.getSquare() % Main.player.getWidth();
-		int y = Main.player.getSquare() / Main.player.getWidth();
-		boolean[] walls = Main.player.getMaze().getSquare(Main.player.getSquare());
-		
-		Sprite hero = new Sprite("new-sprites/Player(s)/Adventurer-Base-NoItems.png", new double[] {x * squareSizeX + 1, panel.getHeight() - (y + 1) * squareSizeY + 1, squareSizeX - 2, squareSizeY - 2});
-		panel.addObject(hero);
-		
-		
-		addEnemies(panel);
 	}
 	
 	/**

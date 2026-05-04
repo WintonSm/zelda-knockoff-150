@@ -32,7 +32,7 @@ public class Inventory {
 	}
 	
 	/**
-	 * Uses a health potion (Will Fix to become just "useItem(Item item)") 
+	 * Uses a health potion
 	 */
 	public void useHealthPotion() {
 		if(Main.player.getHp() == Main.player.getMaxHp()) return;

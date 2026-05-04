@@ -36,8 +36,8 @@ public class Main {
 		screen = new View();
 		
 		screen.addPanel(0);
+		screen.addPanel(1);
 		screen.addPanel(2);
-		screen.addPanel(3);
 		screen.repaint();
 	}
 	
@@ -83,6 +83,11 @@ public class Main {
 		reloadScreen();
 	}
 	
+	/**
+	 * Checks if there is a fight at a location
+	 * @param loc the location to check
+	 * @return true if there is a fight, false otherwise
+	 */
 	public static boolean isFight(int loc) {
 		for (int i = 0; i < fightLoc.length; i++) {
 			if (fightLoc[i] == loc) {
@@ -91,6 +96,12 @@ public class Main {
 		}
 		return false;
 	}
+	
+	/**
+	 * moves a fight
+	 * @param loc the location of the fight
+	 * @return the direction to move the fight in
+	 */
 	private static int fightMove(int loc) {
 		int[] directions = {-1, player.getWidth(), 1, -player.getWidth()};
 		int direction = random(0, 4);
@@ -100,11 +111,15 @@ public class Main {
 		return 0;
 	}
 	
+	/**
+	 * Code that activates when a fight is triggered
+	 */
 	private static void fight() {
 		player.damage(random(5, 8));
 		
 		if(player.getHp() <= 0) {
 			screen.end();
+			screen.repaint();
 		}
 		
 		for (int i = 0; i < fightLoc.length; i++) {
@@ -113,6 +128,10 @@ public class Main {
 			}
 		}
 	}
+	
+	/**
+	 * reloads the screen and updates the maze
+	 */
 	private static void reloadScreen() {
 		screen.removePanel(0);
 		player.addVisited(player.getSquare());
@@ -122,6 +141,11 @@ public class Main {
 		screen.repaint();
 	}
 	
+	/**
+	 * Checks if a square has a chest on it
+	 * @param square the square to check
+	 * @return the chest that is there if there is one
+	 */
 	public static Chest isChest(int square) {
 		for (int i = 0; i < chestList.length; i++) {
 			if (chestList[i] != null && chestList[i].getSquare() == square) {
@@ -131,6 +155,9 @@ public class Main {
 		return null;
 	}
 	
+	/**
+	 * Takes the player to the next floor and resets everything
+	 */
 	public static void newFloor() {
 		floor++;
 		
